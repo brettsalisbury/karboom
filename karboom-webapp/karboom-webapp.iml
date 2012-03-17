@@ -26,7 +26,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:3.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:3.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:3.0.5.RELEASE" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:jstl:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: taglibs:standard:1.1.2" level="project" />
   </component>
 </module>
 

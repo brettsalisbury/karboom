@@ -8,6 +8,7 @@
     <modules>
         <module>karboom-domain</module>
         <module>karboom-webapp</module>
+        <module>karboom-tests</module>
     </modules>
     <packaging>pom</packaging>
 

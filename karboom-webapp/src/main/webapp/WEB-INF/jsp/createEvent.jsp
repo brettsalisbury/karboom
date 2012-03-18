@@ -1,11 +1,11 @@
 <html>
     <head>
         <title>Create a new event</title>
-        <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection">
-        <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print">
+        <link rel="stylesheet" href="resources/css/blueprint/screen.css" type="text/css" media="screen, projection">
+        <link rel="stylesheet" href="resources/css/blueprint/print.css" type="text/css" media="print">
 
         <!--[if lt IE 8]>
-            <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection">
+            <link rel="stylesheet" href="resources/css/blueprint/ie.css" type="text/css" media="screen, projection">
         <![endif]-->
     </head>
 

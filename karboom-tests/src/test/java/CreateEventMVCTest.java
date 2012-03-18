@@ -32,7 +32,7 @@ public class CreateEventMVCTest {
         // Given
 
         // When
-        driver.get("http://localhost:8080/karboom-webapp/karboom/createEvent");
+        driver.get("http://localhost:8080/karboom-webapp/createEvent");
 
         // Then
         assertThat(driver.findElement(By.tagName("title")).getText(), is(equalTo("Create a new event")));

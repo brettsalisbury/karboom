@@ -79,7 +79,7 @@
                                 <groupId>org.acmefireworks</groupId>
                                 <artifactId>karboom-webapp</artifactId>
                                 <type>war</type>
-                                <pingURL>http://localhost:8080/karboom-webapp/karboom/helloworld</pingURL>
+                                <pingURL>http://localhost:8080/karboom-webapp/helloworld</pingURL>
                             </deployable>
                         </deployables>
                     </deployer>

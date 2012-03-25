@@ -47,8 +47,7 @@
                 <table id="currentNames">
                     <c:forEach var="attendee" items="${peopleAttendingEvent}">
                     <tr>
-                        <td>${attendee.firstname}</td>
-                        <td>${attendee.surname}</td>
+                        <td>${attendee}</td>
                     </tr>
                     </c:forEach>
                 </table>

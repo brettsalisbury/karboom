@@ -1,5 +1,6 @@
 package com.acme.karboom.webapp.web;
 
+import ch.lambdaj.Lambda;
 import com.acme.karboom.webapp.domainwrappers.EventSpringService;
 import org.acmefireworks.Event;
 import org.acmefireworks.Person;
@@ -34,8 +35,8 @@ public class CreateEventController {
     }
 
     @ModelAttribute(value = "peopleAttendingEvent")
-    public Collection<Person> getPeopleAttendingEvent() {
-        return event.getPeopleAttendingEvent();
+    public Collection<String> getPeopleAttendingEvent() {
+        return Lambda.extractString(event.getPeopleAttendingEvent());
     }
 
     @RequestMapping(method = RequestMethod.GET)

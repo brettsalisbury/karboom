@@ -21,6 +21,7 @@
         <logback.dependency.version>1.0.0</logback.dependency.version>
         <slf4j.dependency.version>1.6.4</slf4j.dependency.version>
         <mockito.dependency.version>1.9.0</mockito.dependency.version>
+        <lambdaj.dependency.version>2.3.3</lambdaj.dependency.version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +64,11 @@
                         <artifactId>hamcrest-core</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.lambdaj</groupId>
+                <artifactId>lambdaj</artifactId>
+                <version>${lambdaj.dependency.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

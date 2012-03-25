@@ -8,9 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,16 +23,14 @@ public class CreateNewEventTest {
     private CreateEventPage createEventPage;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         driver = new FirefoxDriver();
         driver.get("http://localhost:8080/karboom-webapp/createEvent");
         createEventPage = PageFactory.initElements(driver, CreateEventPage.class);
     }
 
     @Test
-    public void shouldBeAbleToNavigateToSiteAndAddAUser()
-    {
+    public void shouldBeAbleToNavigateToSiteAndAddAUser() {
         // given
         String expectedFirstName = "Eric";
         String expectedLastName = "Idle";
@@ -43,13 +39,23 @@ public class CreateNewEventTest {
         createEventPage.addName(expectedFirstName, expectedLastName);
 
         // then
-        String expectedLastNameAdded = String.format("%s %s", expectedFirstName, expectedLastName);
-        assertThat(createEventPage.getLastNameAdded(), is(equalTo(expectedLastNameAdded)));
+        String expectedNameAdded = String.format("%s %s", expectedFirstName, expectedLastName);
+        assertTrue(createEventPage.getEventAttendees().contains(expectedNameAdded));
+
+        // given
+        String expectedFirstName2 = "John";
+        String expectedLastName2 = "Cleese";
+
+        // when
+        createEventPage.addName(expectedFirstName2, expectedLastName2);
+
+        // then
+        String expectedNameAdded2 = String.format("%s %s", expectedFirstName2, expectedLastName2);
+        assertTrue(createEventPage.getEventAttendees().contains(expectedNameAdded2));
     }
 
     @After
-    public void closeDown()
-    {
+    public void closeDown() {
         this.driver.close();
     }
 }

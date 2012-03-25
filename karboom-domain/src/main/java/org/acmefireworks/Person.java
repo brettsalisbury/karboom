@@ -9,8 +9,7 @@ public class Person implements Serializable {
     private String firstname;
     private String surname;
 
-    public Person()
-    {
+    public Person() {
 
     }
 
@@ -54,4 +53,10 @@ public class Person implements Serializable {
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", this.firstname, this.surname);
+    }
+
 }

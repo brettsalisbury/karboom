@@ -123,5 +123,10 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.googlecode.lambdaj</groupId>
+            <artifactId>lambdaj</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

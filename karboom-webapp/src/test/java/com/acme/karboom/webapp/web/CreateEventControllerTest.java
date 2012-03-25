@@ -89,11 +89,11 @@ public class CreateEventControllerTest {
         this.event.addPersonToEvent(expectedPerson);
 
         // when
-        Collection<Person> returnedCollection = createEventController.getPeopleAttendingEvent();
+        Collection<String> returnedCollection = createEventController.getPeopleAttendingEvent();
 
         // then
         Assert.assertThat(returnedCollection.size(), is(CoreMatchers.equalTo(1)));
-        Assert.assertTrue(returnedCollection.containsAll(Arrays.asList(expectedPerson)));
+        Assert.assertTrue(returnedCollection.containsAll(Arrays.asList(expectedPerson.toString())));
     }
 
 }

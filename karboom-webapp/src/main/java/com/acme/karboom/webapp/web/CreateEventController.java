@@ -6,12 +6,10 @@ import org.acmefireworks.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
 
@@ -20,6 +18,9 @@ import java.util.Collection;
 @Scope("request")
 public class CreateEventController {
 
+    public static final String CREATE_EVENT_VIEW = "createEvent";
+    public static final String ADD_PERSON_FORM_SUBMISSION_VIEW = String.format("redirect:%s", CREATE_EVENT_VIEW);
+
     private Event event;
 
     @Autowired
@@ -27,25 +28,24 @@ public class CreateEventController {
         this.event = event;
     }
 
-    @ModelAttribute(value="peopleAttendingEvent")
+    @ModelAttribute(value = "person")
+    public Person getPersonForForm() {
+        return new Person();
+    }
+
+    @ModelAttribute(value = "peopleAttendingEvent")
     public Collection<Person> getPeopleAttendingEvent() {
         return event.getPeopleAttendingEvent();
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getViewForPageLoad(ModelMap model) {
-        Person person = new Person();
-        model.addAttribute("person",person);
-        return "createEvent";
+    public String getViewForPageLoad() {
+        return CREATE_EVENT_VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView getViewForFormSubmission(@ModelAttribute(value="person") Person person, BindingResult result) {
+    public String getViewForFormSubmission(Person person, BindingResult result) {
         this.event.addPersonToEvent(person);
-        ModelAndView mav = new ModelAndView("createEvent");
-        mav.addObject("person", new Person());
-        return mav;
+        return ADD_PERSON_FORM_SUBMISSION_VIEW;
     }
-
-
 }

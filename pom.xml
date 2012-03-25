@@ -20,6 +20,7 @@
         <spring.dependency.version>3.0.5.RELEASE</spring.dependency.version>
         <logback.dependency.version>1.0.0</logback.dependency.version>
         <slf4j.dependency.version>1.6.4</slf4j.dependency.version>
+        <mockito.dependency.version>1.9.0</mockito.dependency.version>
     </properties>
 
     <dependencyManagement>
@@ -50,6 +51,18 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.dependency.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.dependency.version}</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hamcrest</groupId>
+                        <artifactId>hamcrest-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

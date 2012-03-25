@@ -7,9 +7,6 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.web.ModelAndViewAssert;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,7 +14,6 @@ import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,72 +28,62 @@ public class CreateEventControllerTest {
     private Event event;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         EventSpringService serviceEvent = new EventSpringService();
         this.createEventController = new CreateEventController(serviceEvent);
         this.event = serviceEvent;
     }
 
     @Test
-    public void shouldReturnCreateEventViewFromControllerOnInitialPageLoad()
-    {
+    public void shouldReturnCreateEventViewFromControllerOnInitialPageLoad() {
         // Given
         String expectedViewName = "createEvent";
-        ModelMap model = new ModelMap();
 
         // When
-        String actualViewName = createEventController.getViewForPageLoad(model);
+        String actualViewName = createEventController.getViewForPageLoad();
 
         // Then
         assertThat(actualViewName, is(equalTo(expectedViewName)));
     }
 
     @Test
-    public void shouldCreateEmptyPersonInModelMapOnInitialPageLoad()
-    {
+    public void shouldCreateEmptyPersonInModelMap() {
         // Given
-        ModelMap model = new ModelMap();
         Person expectedPerson = new Person();
 
         // When
-        String actualViewName = createEventController.getViewForPageLoad(model);
+        Person actualPerson = createEventController.getPersonForForm();
 
         // Then
-        assertTrue(model.containsAttribute("person"));
-        Assert.assertThat((Person) model.get("person"), is(CoreMatchers.equalTo(expectedPerson)));
+        Assert.assertThat(actualPerson, is(CoreMatchers.equalTo(expectedPerson)));
     }
 
     @Test
-    public void shouldReturnCreateEventViewFromControllerOnAddingANewPerson()
-    {
+    public void shouldReturnCreateEventViewFromControllerOnAddingANewPerson() {
         // Given
-        String expectedViewName = "createEvent";
+        String expectedViewName = "redirect:createEvent";
 
         // When
-        ModelAndView actualModelAndView = createEventController.getViewForFormSubmission(null, null);
+        String actualViewName = createEventController.getViewForFormSubmission(null, null);
 
         // Then
-        ModelAndViewAssert.assertViewName(actualModelAndView, expectedViewName);
+        assertThat(actualViewName, is(CoreMatchers.equalTo(expectedViewName)));
     }
 
     @Test
-    public void shouldAddAllPeopleToCreateEventViewOnAddingANewPerson()
-    {
+    public void shouldAddPersonToListOfPeopleAttendingEventOnFormSubmission() {
         // Given
         Person person = new Person("Eric", "Idle");
-        Person expectedPerson = new Person();
 
         // When
-        ModelAndView actualModelAndView = createEventController.getViewForFormSubmission(person, null);
+        createEventController.getViewForFormSubmission(person, null);
 
         // Then
-        ModelAndViewAssert.assertModelAttributeValue(actualModelAndView,"person",expectedPerson);
+        this.event.getPeopleAttendingEvent().contains(person);
     }
 
     @Test
-    public void shouldReturnCurrentEventObjectFromSessionAsModelAttribute()
-    {
+    public void shouldReturnCurrentEventObjectFromSessionAsModelAttribute() {
         // Given
         Person expectedPerson = new Person("Eric", "Idle");
         this.event.addPersonToEvent(expectedPerson);

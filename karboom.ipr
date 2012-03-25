@@ -686,6 +686,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20080701/json-20080701-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.mockito:mockito-all:1.9.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.0/mockito-all-1.9.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.0/mockito-all-1.9.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.0/mockito-all-1.9.0-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.seleniumhq.selenium:selenium-android-driver:2.20.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-android-driver/2.20.0/selenium-android-driver-2.20.0.jar!/" />

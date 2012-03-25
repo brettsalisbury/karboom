@@ -1,8 +1,18 @@
 package org.acmefireworks;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
+
+    private static final long serialVersionUID = 1058576983324511982L;
+
     private String firstname;
     private String surname;
+
+    public Person()
+    {
+
+    }
 
     public Person(String firstname, String surname) {
         this.firstname = firstname;

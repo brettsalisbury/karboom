@@ -1,5 +1,6 @@
 package org.acmefireworks;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -9,7 +10,10 @@ import java.util.*;
  * Time: 3:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Event {
+public class Event implements Serializable{
+
+    private static final long serialVersionUID = -2058765367800155049L;
+
     private Set<Person> people;
 
     public Event() {

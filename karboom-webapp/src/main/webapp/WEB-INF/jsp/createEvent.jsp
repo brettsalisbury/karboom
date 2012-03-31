@@ -53,6 +53,8 @@
                 </table>
             </div>
         </div>
+
+        <a id="nextPage" href="addDrivers">Next</a>
     </body>
 
 

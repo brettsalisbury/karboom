@@ -1,5 +1,6 @@
 package com.acme.karboom.webapp.tests;
 
+import com.acme.karboom.webapp.pages.AddDriversPage;
 import com.acme.karboom.webapp.pages.CreateEventPage;
 import org.junit.After;
 import org.junit.Before;
@@ -52,6 +53,15 @@ public class CreateNewEventTest {
         // then
         String expectedNameAdded2 = String.format("%s %s", expectedFirstName2, expectedLastName2);
         assertTrue(createEventPage.getEventAttendees().contains(expectedNameAdded2));
+
+        // given
+
+
+        // when
+        AddDriversPage page = createEventPage.moveToNextPage();
+
+        // then
+        assertTrue(page.getTitle().contains("drivers"));
     }
 
     @After

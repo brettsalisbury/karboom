@@ -4,6 +4,7 @@ import ch.lambdaj.Lambda;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.Collection;
 
@@ -19,6 +20,7 @@ public class CreateEventPage {
     private WebElement firstname;
     private WebElement surname;
     private WebElement currentNames;
+    private WebElement nextPage;
     private WebDriver driver;
 
     public CreateEventPage(WebDriver driver) {
@@ -33,5 +35,10 @@ public class CreateEventPage {
 
     public Collection<String> getEventAttendees() {
         return Lambda.extractProperty(currentNames.findElements(By.tagName("tr")), "text");
+    }
+
+    public AddDriversPage moveToNextPage() {
+        this.nextPage.click();
+        return PageFactory.initElements(driver, AddDriversPage.class);
     }
 }

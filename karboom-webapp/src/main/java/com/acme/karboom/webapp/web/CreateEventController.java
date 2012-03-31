@@ -7,8 +7,8 @@ import org.acmefireworks.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,19 +29,19 @@ public class CreateEventController {
         this.event = event;
     }
 
-    @ModelAttribute(value = "person")
-    public Person getPersonForForm() {
+    @RequestMapping(method = RequestMethod.GET)
+    public String getViewForPageLoad(ModelMap model) {
+        model.addAttribute("person", getPersonForForm());
+        model.addAttribute("peopleAttendingEvent", getPeopleAttendingEvent());
+        return CREATE_EVENT_VIEW;
+    }
+
+    private Person getPersonForForm() {
         return new Person();
     }
 
-    @ModelAttribute(value = "peopleAttendingEvent")
-    public Collection<String> getPeopleAttendingEvent() {
+    private Collection<String> getPeopleAttendingEvent() {
         return Lambda.extractString(event.getPeopleAttendingEvent());
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public String getViewForPageLoad() {
-        return CREATE_EVENT_VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST)

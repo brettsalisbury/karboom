@@ -7,13 +7,13 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.ui.ModelMap;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,25 +36,31 @@ public class CreateEventControllerTest {
 
     @Test
     public void shouldReturnCreateEventViewFromControllerOnInitialPageLoad() {
+
         // Given
         String expectedViewName = "createEvent";
+        ModelMap model = new ModelMap();
 
         // When
-        String actualViewName = createEventController.getViewForPageLoad();
+        String actualViewName = createEventController.getViewForPageLoad(model);
 
         // Then
-        assertThat(actualViewName, is(equalTo(expectedViewName)));
+        assertThat(actualViewName, is(CoreMatchers.equalTo(expectedViewName)));
     }
 
     @Test
     public void shouldCreateEmptyPersonInModelMap() {
+
         // Given
         Person expectedPerson = new Person();
+        ModelMap model = new ModelMap();
 
         // When
-        Person actualPerson = createEventController.getPersonForForm();
+        createEventController.getViewForPageLoad(model);
 
         // Then
+        Assert.assertTrue(model.containsAttribute("person"));
+        Person actualPerson = (Person) model.get("person");
         Assert.assertThat(actualPerson, is(CoreMatchers.equalTo(expectedPerson)));
     }
 
@@ -87,13 +93,16 @@ public class CreateEventControllerTest {
         // Given
         Person expectedPerson = new Person("Eric", "Idle");
         this.event.addPersonToEvent(expectedPerson);
+        ModelMap model = new ModelMap();
 
         // when
-        Collection<String> returnedCollection = createEventController.getPeopleAttendingEvent();
+        createEventController.getViewForPageLoad(model);
 
         // then
-        Assert.assertThat(returnedCollection.size(), is(CoreMatchers.equalTo(1)));
-        Assert.assertTrue(returnedCollection.containsAll(Arrays.asList(expectedPerson.toString())));
+        Assert.assertTrue(model.containsAttribute("peopleAttendingEvent"));
+        Collection<Person> actualCollection = (Collection<Person>) model.get("peopleAttendingEvent");
+        Assert.assertThat(actualCollection.size(), is(CoreMatchers.equalTo(1)));
+        Assert.assertTrue(actualCollection.containsAll(Arrays.asList(expectedPerson.toString())));
     }
 
 }

@@ -72,10 +72,12 @@
                     <wait>false</wait>
                     <container>
                         <containerId>tomcat7x</containerId>
-                        <type>installed</type>
                         <home>${env.CATALINA_HOME}</home>
                     </container>
-
+                    <configuration>
+                        <type>existing</type>
+                        <home>${env.CATALINA_HOME}</home>
+                    </configuration>
                     <deployer>
                         <type>installed</type>
                         <deployables>
@@ -83,7 +85,7 @@
                                 <groupId>org.acmefireworks</groupId>
                                 <artifactId>karboom-webapp</artifactId>
                                 <type>war</type>
-                                <pingURL>http://localhost:8080/karboom-webapp/helloworld</pingURL>
+                                <pingURL>http://localhost:8080/karboom-webapp/createEvent</pingURL>
                             </deployable>
                         </deployables>
                     </deployer>
@@ -110,4 +112,49 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>local-tomcat-running-profile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <configuration>
+                            <wait>false</wait>
+                            <container>
+                                <containerId>tomcat7x</containerId>
+                                <home>${env.CATALINA_HOME}</home>
+                            </container>
+                            <configuration>
+                                <type>existing</type>
+                                <home>${env.CATALINA_HOME}</home>
+                            </configuration>
+                            <deployer>
+                                <type>installed</type>
+                                <deployables>
+                                    <deployable>
+                                        <groupId>org.acmefireworks</groupId>
+                                        <artifactId>karboom-webapp</artifactId>
+                                        <type>war</type>
+                                        <pingURL>http://localhost:8080/karboom-webapp/createEvent</pingURL>
+                                    </deployable>
+                                </deployables>
+                            </deployer>
+
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-container</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

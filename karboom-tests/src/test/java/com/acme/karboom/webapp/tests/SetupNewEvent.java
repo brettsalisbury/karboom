@@ -9,6 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -22,12 +25,14 @@ public class SetupNewEvent {
 
     private WebDriver driver;
     private CreateEventPage createEventPage;
+    private List<String> attendees;
 
     @Before
     public void setUp() {
         driver = new FirefoxDriver();
         driver.get("http://localhost:8080/karboom-webapp/createEvent");
         createEventPage = PageFactory.initElements(driver, CreateEventPage.class);
+        attendees = Arrays.asList("Eric Idle", "John Cleese");
     }
 
     @Test
@@ -37,23 +42,24 @@ public class SetupNewEvent {
         nominateDriversAndAddDetails();
     }
 
-    private void nominateDriversAndAddDetails() {
-        addDriverToEvent("Eric", "Idle");
-        addDriverToEvent("John", "Cleese");
+    private void createANewEventAndAddAttendees() {
+        for (String attendee : attendees) {
+            addDriverToEvent(attendee);
+        }
+        moveFromNewEventToDriversPage();
     }
 
-    private void addDriverToEvent(String firstName, String surname) {
+    private void addDriverToEvent(String name) {
         // given
 
         // when
-        createEventPage.addName(firstName, surname);
+        createEventPage.addName(name);
 
         // then
-        String actualName = String.format("%s %s", firstName, surname);
-        assertTrue(createEventPage.getEventAttendees().contains(actualName));
+        assertTrue(createEventPage.getEventAttendees().contains(name));
     }
 
-    private void createANewEventAndAddAttendees() {
+    private void moveFromNewEventToDriversPage() {
         // given
 
         // when
@@ -61,6 +67,10 @@ public class SetupNewEvent {
 
         // then
         assertTrue(page.getTitle().contains("drivers"));
+    }
+
+    private void nominateDriversAndAddDetails() {
+
     }
 
     @After

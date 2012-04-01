@@ -27,10 +27,15 @@ public class CreateEventPage {
         this.driver = driver;
     }
 
-    public void addName(String firstName, String lastName) {
-        this.firstname.sendKeys(firstName);
-        this.surname.sendKeys(lastName);
+    public void addName(String name) {
+        String[] splitNames = splitName(name);
+        this.firstname.sendKeys(splitNames[0]);
+        this.surname.sendKeys(splitNames[1]);
         this.firstname.submit();
+    }
+
+    private String[] splitName(String name) {
+        return name.split(" ");
     }
 
     public Collection<String> getEventAttendees() {

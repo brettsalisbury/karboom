@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertTrue;
  * Time: 1:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CreateNewEventTest {
+public class SetupNewEvent {
 
     private WebDriver driver;
     private CreateEventPage createEventPage;
@@ -32,30 +32,29 @@ public class CreateNewEventTest {
 
     @Test
     public void shouldBeAbleToNavigateToSiteAndAddAUser() {
+
+        createANewEventAndAddAttendees();
+        nominateDriversAndAddDetails();
+    }
+
+    private void nominateDriversAndAddDetails() {
+        addDriverToEvent("Eric", "Idle");
+        addDriverToEvent("John", "Cleese");
+    }
+
+    private void addDriverToEvent(String firstName, String surname) {
         // given
-        String expectedFirstName = "Eric";
-        String expectedLastName = "Idle";
 
         // when
-        createEventPage.addName(expectedFirstName, expectedLastName);
+        createEventPage.addName(firstName, surname);
 
         // then
-        String expectedNameAdded = String.format("%s %s", expectedFirstName, expectedLastName);
-        assertTrue(createEventPage.getEventAttendees().contains(expectedNameAdded));
+        String actualName = String.format("%s %s", firstName, surname);
+        assertTrue(createEventPage.getEventAttendees().contains(actualName));
+    }
 
+    private void createANewEventAndAddAttendees() {
         // given
-        String expectedFirstName2 = "John";
-        String expectedLastName2 = "Cleese";
-
-        // when
-        createEventPage.addName(expectedFirstName2, expectedLastName2);
-
-        // then
-        String expectedNameAdded2 = String.format("%s %s", expectedFirstName2, expectedLastName2);
-        assertTrue(createEventPage.getEventAttendees().contains(expectedNameAdded2));
-
-        // given
-
 
         // when
         AddDriversPage page = createEventPage.moveToNextPage();

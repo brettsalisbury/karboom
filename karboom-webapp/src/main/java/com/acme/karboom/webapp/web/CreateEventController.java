@@ -19,8 +19,8 @@ import java.util.Collection;
 @Scope("request")
 public class CreateEventController {
 
-    public static final String CREATE_EVENT_VIEW = "createEvent";
-    public static final String ADD_PERSON_FORM_SUBMISSION_VIEW = String.format("redirect:%s", CREATE_EVENT_VIEW);
+    private static final String CREATE_EVENT_VIEW = "createEvent";
+    private static final String ADD_PERSON_FORM_SUBMISSION_VIEW = String.format("redirect:%s", CREATE_EVENT_VIEW);
 
     private Event event;
 

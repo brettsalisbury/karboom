@@ -42,8 +42,8 @@ public class CreateEventPage {
         return Lambda.extractProperty(currentNames.findElements(By.tagName("tr")), "text");
     }
 
-    public AddDriversPage moveToNextPage() {
+    public NominateDriversPage moveToNextPage() {
         this.nextPage.click();
-        return PageFactory.initElements(driver, AddDriversPage.class);
+        return PageFactory.initElements(driver, NominateDriversPage.class);
     }
 }

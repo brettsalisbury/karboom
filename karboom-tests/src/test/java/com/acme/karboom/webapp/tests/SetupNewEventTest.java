@@ -1,7 +1,7 @@
 package com.acme.karboom.webapp.tests;
 
-import com.acme.karboom.webapp.pages.AddDriversPage;
 import com.acme.karboom.webapp.pages.CreateEventPage;
+import com.acme.karboom.webapp.pages.NominateDriversPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,11 +21,13 @@ import static junit.framework.Assert.assertTrue;
  * Time: 1:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SetupNewEvent {
+public class SetupNewEventTest {
 
     private WebDriver driver;
     private CreateEventPage createEventPage;
     private List<String> attendees;
+    private List<String> drivers;
+    private NominateDriversPage nominateDriversPage;
 
     @Before
     public void setUp() {
@@ -33,6 +35,7 @@ public class SetupNewEvent {
         driver.get("http://localhost:8080/karboom-webapp/createEvent");
         createEventPage = PageFactory.initElements(driver, CreateEventPage.class);
         attendees = Arrays.asList("Eric Idle", "John Cleese");
+        drivers = Arrays.asList("John Cleese");
     }
 
     @Test
@@ -63,14 +66,26 @@ public class SetupNewEvent {
         // given
 
         // when
-        AddDriversPage page = createEventPage.moveToNextPage();
+        nominateDriversPage = createEventPage.moveToNextPage();
 
         // then
-        assertTrue(page.getTitle().contains("drivers"));
+        assertTrue(nominateDriversPage.getTitle().contains("drivers"));
     }
 
     private void nominateDriversAndAddDetails() {
+        for (String driver : drivers) {
+            nominateAsDriver(driver);
+        }
+    }
 
+    private void nominateAsDriver(String driver) {
+        // given
+
+        // when
+        nominateDriversPage.nominatePersonAsDriver(driver);
+
+        // then
+        assertTrue(nominateDriversPage.getDrivers().contains(driver));
     }
 
     @After

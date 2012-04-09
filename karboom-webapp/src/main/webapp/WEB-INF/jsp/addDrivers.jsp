@@ -22,10 +22,29 @@
 
             <div class="span-16" id="content">
                 <h2>Select a driver</h2>
+                <form:form commandName="drivers">
+                    <table id="nominateDrivers">
+                        <tr name="Eric Idle">
+                            <td>Eric Idle</td>
+                            <td><form:checkbox value="Eric Idle" path="currentDrivers" id="nominateDriver"/></td>
+                        </tr>
+                        <tr name="John Cleese">
+                            <td>John Cleese</td>
+                            <td><form:checkbox value="John Cleese" path="currentDrivers" id="nominateDriver"/></td>
+                        </tr>
+                    </table>
+                </form:form>
             </div>
 
             <div class="span-8 last">
                 <h2>List of drivers</h2>
+                <table id="currentDrivers">
+                    <c:forEach var="driver" items="${nominatedDrivers}">
+                    <tr>
+                        <td>${driver}</td>
+                    </tr>
+                    </c:forEach>
+                </table>
             <div>
         </div>
     </body>

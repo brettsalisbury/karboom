@@ -19,14 +19,12 @@ public class EventTest {
     private Event event;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         this.event = new Event();
     }
 
     @Test
-    public void shouldAddPersonToEvent()
-    {
+    public void shouldAddPersonToEvent() {
 
         // given
         Person person = new Person("Basil", "Faulty");
@@ -39,8 +37,7 @@ public class EventTest {
     }
 
     @Test
-    public void shouldNotIncrementPeopleAttendingCountIfPersonIsAlreadyAttending()
-    {
+    public void shouldNotIncrementPeopleAttendingCountIfPersonIsAlreadyAttending() {
         // given
         Person person = new Person("Bart", "Simpson");
         Person samePerson = new Person("Bart", "Simpson");
@@ -51,5 +48,31 @@ public class EventTest {
 
         // then
         assertThat(this.event.getPeopleAttendingEvent().size(), is(equalTo(1)));
+    }
+
+    @Test
+    public void shouldNominatePersonAsDriverToEvent() {
+        // given
+        Person person = new Person("Bart", "Simpson");
+
+        // when
+        this.event.addDriver(person);
+
+        // then
+        assertThat(this.event.getDrivers().size(), is(equalTo(1)));
+    }
+
+    @Test
+    public void shouldNotIncrementDriversCountIfPersonIsAlreadyAttending() {
+        // given
+        Person person = new Person("Bart", "Simpson");
+        Person samePerson = new Person("Bart", "Simpson");
+
+        // when
+        this.event.addDriver(person);
+        this.event.addDriver(samePerson);
+
+        // then
+        assertThat(this.event.getDrivers().size(), is(equalTo(1)));
     }
 }

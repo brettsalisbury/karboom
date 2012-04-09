@@ -15,4 +15,6 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class EventSpringService extends Event {
     private static final long serialVersionUID = -7921257708748717926L;
+
+
 }

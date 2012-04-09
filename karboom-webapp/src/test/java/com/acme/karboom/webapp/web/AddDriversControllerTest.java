@@ -1,12 +1,19 @@
 package com.acme.karboom.webapp.web;
 
 import com.acme.karboom.webapp.domainwrappers.EventSpringService;
+import org.acmefireworks.Drivers;
+import org.acmefireworks.Person;
 import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.ui.ModelMap;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,21 +28,85 @@ public class AddDriversControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        EventSpringService serviceEvent = new EventSpringService();
-        this.addDriversController = new AddDriversController(serviceEvent);
-        this.event = serviceEvent;
+        EventSpringService event = new EventSpringService();
+        this.addDriversController = new AddDriversController(event);
+        this.event = event;
     }
 
     @Test
     public void shouldReturnCorrectViewName() {
+
         // given
         String expectedViewName = "addDrivers";
+        ModelMap model = new ModelMap();
 
         // when
-        String actualViewName = addDriversController.getViewForInitialPageLoad();
+        String actualViewName = addDriversController.getViewForInitialPageLoad(model);
 
         // then
         assertThat(actualViewName, is(CoreMatchers.equalTo(expectedViewName)));
+    }
 
+    @Test
+    public void shouldPlaceNewDriversIntoModelMapForPageLoad() {
+        // given
+        ModelMap model = new ModelMap();
+
+        // when
+        addDriversController.getViewForInitialPageLoad(model);
+
+        // then
+        assertTrue(model.containsAttribute("drivers"));
+        Drivers actualDrivers = (Drivers) model.get("drivers");
+        assertThat(actualDrivers, is(not(nullValue())));
+    }
+
+    @Test
+    public void shouldPlaceCurrentDriversIntoModelMapForPageLoad() {
+        // given
+        ModelMap model = new ModelMap();
+        Person expectedDriver = new Person("Eric", "Idle");
+        this.event.addDriver(expectedDriver);
+
+        // when
+        addDriversController.getViewForInitialPageLoad(model);
+
+        // then
+        assertTrue(model.containsAttribute("nominatedDrivers"));
+        Collection<String> actualNominatedDrivers = (Collection<String>) model.get("nominatedDrivers");
+        Assert.assertThat(actualNominatedDrivers.size(), is(CoreMatchers.equalTo(1)));
+        Assert.assertTrue(actualNominatedDrivers.containsAll(Arrays.asList(expectedDriver.toString())));
+    }
+
+    @Test
+    public void shouldReturnAddDriverViewFromControllerOnAddingAllDrivers() {
+        // given
+        String expectedViewName = "redirect:addDrivers";
+
+        // when
+        String actualViewName = addDriversController.getViewForFormSubmission(new Drivers(), null);
+
+        // then
+        assertThat(expectedViewName, is(equalTo(actualViewName)));
+    }
+
+    @Test
+    public void shouldPlaceDriversIntoListOfValidDrivers() {
+        // given
+        Drivers drivers = new Drivers();
+        Person expectedDriver = new Person("John", "Cleese");
+        Person nonDriver = new Person("Eric", "Idle");
+
+        event.addPersonToEvent(expectedDriver);
+        event.addPersonToEvent(nonDriver);
+
+        drivers.setCurrentDrivers(new String[]{expectedDriver.toString()});
+
+        // when
+        addDriversController.getViewForFormSubmission(drivers, null);
+
+        // then
+        assertTrue(event.getDrivers().contains(expectedDriver));
+        assertFalse(event.getDrivers().contains(nonDriver));
     }
 }

@@ -62,6 +62,28 @@ public class AddDriversControllerTest {
     }
 
     @Test
+    public void shouldPlaceNonDriversOnlyInListOfDrivers() {
+
+        // given
+        ModelMap model = new ModelMap();
+        Person driver = new Person("Allan", "Border");
+        Person nonDriver = new Person("Shane", "Warne");
+
+        this.event.addPersonToEvent(driver);
+        this.event.addPersonToEvent(nonDriver);
+        this.event.addDriver(driver);
+
+        // when
+        addDriversController.getViewForInitialPageLoad(model);
+
+        // then
+        assertTrue(model.containsAttribute("nonDrivers"));
+        Collection<String> nonDrivers = (Collection<String>) model.get("nonDrivers");
+        assertThat(nonDrivers.size(), is(equalTo(1)));
+        assertTrue(nonDrivers.containsAll(Arrays.asList(nonDriver.toString())));
+    }
+
+    @Test
     public void shouldPlaceCurrentDriversIntoModelMapForPageLoad() {
         // given
         ModelMap model = new ModelMap();

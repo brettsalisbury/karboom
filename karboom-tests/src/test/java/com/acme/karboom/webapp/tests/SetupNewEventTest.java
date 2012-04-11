@@ -12,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.Arrays;
 import java.util.List;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -85,7 +86,8 @@ public class SetupNewEventTest {
         nominateDriversPage.nominatePersonAsDriver(driver);
 
         // then
-        assertTrue(nominateDriversPage.getDrivers().contains(driver));
+        assertTrue("Driver is not displayed in list of drivers", nominateDriversPage.getDrivers().contains(driver));
+        assertFalse("Driver is still present in list of non drivers", nominateDriversPage.getNonDrivers().contains(driver));
     }
 
     @After

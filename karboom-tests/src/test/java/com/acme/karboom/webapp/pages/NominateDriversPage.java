@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 
+import static ch.lambdaj.Lambda.on;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Brett
@@ -37,5 +39,9 @@ public class NominateDriversPage {
 
     public Collection<String> getDrivers() {
         return Lambda.extractProperty(currentDrivers.findElements(By.tagName("tr")), "text");
+    }
+
+    public Collection<String> getNonDrivers() {
+        return Lambda.extract(nominateDrivers.findElements(By.tagName("tr")), on(WebElement.class).getAttribute("name"));
     }
 }

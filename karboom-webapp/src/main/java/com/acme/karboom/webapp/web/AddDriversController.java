@@ -44,16 +44,18 @@ public class AddDriversController {
     @RequestMapping(method = RequestMethod.GET)
     public String getViewForInitialPageLoad(ModelMap model) {
         model.addAttribute("drivers", getDriverForForm());
-        model.addAttribute("nominatedDrivers", getCurrentDrivers());
+        model.addAttribute("nominatedDrivers", convertDomainCollectionToFormCollection(this.event.getDrivers()));
+        model.addAttribute("nonDrivers", convertDomainCollectionToFormCollection(this.event.getNonDrivingEventAttendees()));
         return ADD_DRIVERS_VIEW;
     }
+
 
     private Drivers getDriverForForm() {
         return new Drivers();
     }
 
-    private Collection<String> getCurrentDrivers() {
-        return Lambda.extractString(event.getDrivers());
+    private Collection<String> convertDomainCollectionToFormCollection(Collection<Person> domainCollection) {
+        return Lambda.extractString(domainCollection);
     }
 
     @RequestMapping(method = RequestMethod.POST)

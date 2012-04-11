@@ -24,14 +24,12 @@
                 <h2>Select a driver</h2>
                 <form:form commandName="drivers">
                     <table id="nominateDrivers">
-                        <tr name="Eric Idle">
-                            <td>Eric Idle</td>
-                            <td><form:checkbox value="Eric Idle" path="currentDrivers" id="nominateDriver"/></td>
+                        <c:forEach var="nonDriver" items="${nonDrivers}">
+                        <tr name="${nonDriver}">
+                            <td>${nonDriver}</td>
+                            <td><form:checkbox value="${nonDriver}" path="currentDrivers" id="nominateDriver"/></td>
                         </tr>
-                        <tr name="John Cleese">
-                            <td>John Cleese</td>
-                            <td><form:checkbox value="John Cleese" path="currentDrivers" id="nominateDriver"/></td>
-                        </tr>
+                        </c:forEach>
                     </table>
                 </form:form>
             </div>

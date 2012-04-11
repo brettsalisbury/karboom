@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 
 /**
  * Created by IntelliJ IDEA.
@@ -74,5 +75,21 @@ public class EventTest {
 
         // then
         assertThat(this.event.getDrivers().size(), is(equalTo(1)));
+    }
+
+    @Test
+    public void shouldReturnListOfAllAttendeesNotDriving() {
+        // given
+        Person driver = new Person("Bart", "Simpson");
+        Person nonDriver = new Person("Homer", "Simpson");
+
+        // when
+        this.event.addPersonToEvent(driver);
+        this.event.addPersonToEvent(nonDriver);
+        this.event.addDriver(driver);
+
+        // then
+        assertThat(this.event.getNonDrivingEventAttendees().size(), is(equalTo(1)));
+        assertThat(this.event.getNonDrivingEventAttendees(), hasItem(nonDriver));
     }
 }

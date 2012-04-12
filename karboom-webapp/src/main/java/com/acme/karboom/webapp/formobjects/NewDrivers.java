@@ -1,4 +1,4 @@
-package org.acmefireworks;
+package com.acme.karboom.webapp.formobjects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -7,19 +7,19 @@ package org.acmefireworks;
  * Time: 2:21 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Drivers {
+public class NewDrivers {
 
     private String[] drivers;
 
-    public Drivers() {
+    public NewDrivers() {
         drivers = new String[]{};
     }
 
-    public String[] getCurrentDrivers() {
+    public String[] getDrivers() {
         return this.drivers;
     }
 
-    public void setCurrentDrivers(String[] drivers) {
+    public void setDrivers(String[] drivers) {
         this.drivers = drivers;
     }
 

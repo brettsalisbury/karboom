@@ -22,12 +22,12 @@
 
             <div class="span-16" id="content">
                 <h2>Select a driver</h2>
-                <form:form commandName="drivers">
+                <form:form commandName="newDrivers">
                     <table id="nominateDrivers">
                         <c:forEach var="nonDriver" items="${nonDrivers}">
                         <tr name="${nonDriver}">
                             <td>${nonDriver}</td>
-                            <td><form:checkbox value="${nonDriver}" path="currentDrivers" id="nominateDriver"/></td>
+                            <td><form:checkbox value="${nonDriver}" path="drivers" id="nominateDriver"/></td>
                         </tr>
                         </c:forEach>
                     </table>

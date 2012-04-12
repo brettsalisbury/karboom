@@ -1,7 +1,7 @@
 package com.acme.karboom.webapp.web;
 
 import com.acme.karboom.webapp.domainwrappers.EventSpringService;
-import org.acmefireworks.Drivers;
+import com.acme.karboom.webapp.formobjects.NewDrivers;
 import org.acmefireworks.Person;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -56,9 +56,9 @@ public class AddDriversControllerTest {
         addDriversController.getViewForInitialPageLoad(model);
 
         // then
-        assertTrue(model.containsAttribute("drivers"));
-        Drivers actualDrivers = (Drivers) model.get("drivers");
-        assertThat(actualDrivers, is(not(nullValue())));
+        assertTrue(model.containsAttribute("newDrivers"));
+        NewDrivers actualNewDrivers = (NewDrivers) model.get("newDrivers");
+        assertThat(actualNewDrivers, is(not(nullValue())));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class AddDriversControllerTest {
         String expectedViewName = "redirect:addDrivers";
 
         // when
-        String actualViewName = addDriversController.getViewForFormSubmission(new Drivers(), null);
+        String actualViewName = addDriversController.getViewForFormSubmission(new NewDrivers(), null);
 
         // then
         assertThat(expectedViewName, is(equalTo(actualViewName)));
@@ -115,17 +115,17 @@ public class AddDriversControllerTest {
     @Test
     public void shouldPlaceDriversIntoListOfValidDrivers() {
         // given
-        Drivers drivers = new Drivers();
+        NewDrivers newDrivers = new NewDrivers();
         Person expectedDriver = new Person("John", "Cleese");
         Person nonDriver = new Person("Eric", "Idle");
 
         event.addPersonToEvent(expectedDriver);
         event.addPersonToEvent(nonDriver);
 
-        drivers.setCurrentDrivers(new String[]{expectedDriver.toString()});
+        newDrivers.setDrivers(new String[]{expectedDriver.toString()});
 
         // when
-        addDriversController.getViewForFormSubmission(drivers, null);
+        addDriversController.getViewForFormSubmission(newDrivers, null);
 
         // then
         assertTrue(event.getDrivers().contains(expectedDriver));

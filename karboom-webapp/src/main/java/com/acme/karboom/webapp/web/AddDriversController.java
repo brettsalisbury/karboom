@@ -2,7 +2,7 @@ package com.acme.karboom.webapp.web;
 
 import ch.lambdaj.Lambda;
 import com.acme.karboom.webapp.domainwrappers.EventSpringService;
-import org.acmefireworks.Drivers;
+import com.acme.karboom.webapp.formobjects.NewDrivers;
 import org.acmefireworks.Event;
 import org.acmefireworks.Person;
 import org.hamcrest.Matchers;
@@ -43,15 +43,15 @@ public class AddDriversController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getViewForInitialPageLoad(ModelMap model) {
-        model.addAttribute("drivers", getDriverForForm());
+        model.addAttribute("newDrivers", getDriverForForm());
         model.addAttribute("nominatedDrivers", convertDomainCollectionToFormCollection(this.event.getDrivers()));
         model.addAttribute("nonDrivers", convertDomainCollectionToFormCollection(this.event.getNonDrivingEventAttendees()));
         return ADD_DRIVERS_VIEW;
     }
 
 
-    private Drivers getDriverForForm() {
-        return new Drivers();
+    private NewDrivers getDriverForForm() {
+        return new NewDrivers();
     }
 
     private Collection<String> convertDomainCollectionToFormCollection(Collection<Person> domainCollection) {
@@ -59,21 +59,21 @@ public class AddDriversController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String getViewForFormSubmission(Drivers currentDrivers, BindingResult result) {
-        addDriversToEvent(currentDrivers);
+    public String getViewForFormSubmission(NewDrivers currentNewDrivers, BindingResult result) {
+        addDriversToEvent(currentNewDrivers);
         return ADD_DRIVERS_FORM_SUBMISSION_VIEW;
     }
 
-    private void addDriversToEvent(Drivers currentDrivers) {
-        Collection<Person> drivers = this.convertStringsToDrivers(currentDrivers);
+    private void addDriversToEvent(NewDrivers currentNewDrivers) {
+        Collection<Person> drivers = this.convertStringsToDrivers(currentNewDrivers);
         for (Person driver : drivers) {
             this.event.addDriver(driver);
         }
     }
 
-    private Collection<Person> convertStringsToDrivers(Drivers currentDrivers) {
+    private Collection<Person> convertStringsToDrivers(NewDrivers currentNewDrivers) {
         List<Person> drivers = new ArrayList<Person>();
-        for (String val : currentDrivers.getCurrentDrivers()) {
+        for (String val : currentNewDrivers.getDrivers()) {
             drivers.add((Person) Lambda.selectUnique(this.event.getPeopleAttendingEvent(), Lambda.having(Lambda.on(Person.class).toString(), Matchers.equalTo(val))));
         }
 

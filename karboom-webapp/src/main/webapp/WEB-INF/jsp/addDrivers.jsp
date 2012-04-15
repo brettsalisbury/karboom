@@ -30,6 +30,9 @@
                             <td><form:checkbox value="${nonDriver}" path="drivers" id="nominateDriver"/></td>
                         </tr>
                         </c:forEach>
+                        <tr>
+                            <td colspan="2"><input type="submit" /></td>
+                        </tr>
                     </table>
                 </form:form>
             </div>
@@ -43,8 +46,10 @@
                     </tr>
                     </c:forEach>
                 </table>
-            <div>
+            </div>
         </div>
+
+        <a id="nextPage" href="addDrivers">Next</a>
     </body>
 
 

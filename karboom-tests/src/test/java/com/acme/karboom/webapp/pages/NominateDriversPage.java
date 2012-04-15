@@ -4,6 +4,7 @@ import ch.lambdaj.Lambda;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.Collection;
 
@@ -22,6 +23,7 @@ public class NominateDriversPage {
     private WebDriver driver;
     private WebElement currentDrivers;
     private WebElement nominateDrivers;
+    private WebElement nextPage;
 
     public NominateDriversPage(WebDriver driver) {
         this.driver = driver;
@@ -43,5 +45,10 @@ public class NominateDriversPage {
 
     public Collection<String> getNonDrivers() {
         return Lambda.extract(nominateDrivers.findElements(By.tagName("tr")), on(WebElement.class).getAttribute("name"));
+    }
+
+    public IternariesPage moveToNextPage() {
+        this.nextPage.click();
+        return PageFactory.initElements(driver, IternariesPage.class);
     }
 }

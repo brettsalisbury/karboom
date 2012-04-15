@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <a id="nextPage" href="addDrivers">Next</a>
+        <a id="nextPage" href="viewIternary">Next</a>
     </body>
 
 

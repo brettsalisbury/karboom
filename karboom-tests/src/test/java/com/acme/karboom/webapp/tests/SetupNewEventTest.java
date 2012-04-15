@@ -1,6 +1,7 @@
 package com.acme.karboom.webapp.tests;
 
 import com.acme.karboom.webapp.pages.CreateEventPage;
+import com.acme.karboom.webapp.pages.IternariesPage;
 import com.acme.karboom.webapp.pages.NominateDriversPage;
 import org.junit.After;
 import org.junit.Before;
@@ -29,6 +30,7 @@ public class SetupNewEventTest {
     private List<String> attendees;
     private List<String> drivers;
     private NominateDriversPage nominateDriversPage;
+    private IternariesPage itenariesPage;
 
     @Before
     public void setUp() {
@@ -44,6 +46,12 @@ public class SetupNewEventTest {
 
         createANewEventAndAddAttendees();
         nominateDriversAndAddDetails();
+        viewMapAndItenararies();
+    }
+
+    private void viewMapAndItenararies() {
+        // given
+
     }
 
     private void createANewEventAndAddAttendees() {
@@ -77,6 +85,17 @@ public class SetupNewEventTest {
         for (String driver : drivers) {
             nominateAsDriver(driver);
         }
+        moveFromDriversToIternariesPage();
+    }
+
+    private void moveFromDriversToIternariesPage() {
+        // given
+
+        // when
+        itenariesPage = nominateDriversPage.moveToNextPage();
+
+        // then
+        assertTrue(itenariesPage.getTitle().contains("iternary"));
     }
 
     private void nominateAsDriver(String driver) {

@@ -13,9 +13,9 @@
         <![endif]-->
 
         <style type="text/css">
-          html { height: 100% }
+          /** html { height: 100% }
           body { height: 100%; margin: 0; padding: 0 }
-          #map_canvas { height: 100% }
+          #map_canvas { height: 100% } **/
         </style>
         <script type="text/javascript"
           src="http://maps.googleapis.com/maps/api/js?sensor=false">
@@ -41,7 +41,7 @@
 
             <div class="span-24" id="content">
                 <h2>Map of suggested routes</h2>
-                <div id="map_canvas" style="width:100%; height:100%"></div>
+                <div id="map_canvas" style="height:100px;"></div>
             </div>
         </div>
     </body>
